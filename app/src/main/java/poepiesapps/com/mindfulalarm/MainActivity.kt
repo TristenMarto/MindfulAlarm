@@ -25,6 +25,12 @@ class MainActivity : AppCompatActivity() {
         endTimePicker = findViewById(R.id.endTimePicker)
         setAlarmButton = findViewById(R.id.setAlarmButton)
 
+        val viewAlarmsButton: Button = findViewById(R.id.viewAlarmsButton)
+        viewAlarmsButton.setOnClickListener {
+            val intent = Intent(this, ActiveAlarmsActivity::class.java)
+            startActivity(intent)
+        }
+
         setAlarmButton.setOnClickListener {
             val startHour = startTimePicker.hour
             val startMinute = startTimePicker.minute
