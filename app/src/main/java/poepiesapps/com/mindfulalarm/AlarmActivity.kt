@@ -1,6 +1,6 @@
 package poepiesapps.com.mindfulalarm
 
-import android.media.RingtoneManager
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -14,13 +14,18 @@ class AlarmActivity : AppCompatActivity() {
 
         stopAlarmButton = findViewById(R.id.stopAlarmButton)
 
-        val alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-        val ringtone = RingtoneManager.getRingtone(this, alarmUri)
-        ringtone.play()
+//        val alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+//        val ringtone = RingtoneManager.getRingtone(this, alarmUri)
+//        ringtone.play()
 
         stopAlarmButton.setOnClickListener {
-            ringtone.stop()
-            finish()
+            stopAlarm()
         }
+    }
+
+    private fun stopAlarm() {
+        val serviceIntent = Intent(this, AlarmService::class.java)
+        stopService(serviceIntent)
+        finish()
     }
 }

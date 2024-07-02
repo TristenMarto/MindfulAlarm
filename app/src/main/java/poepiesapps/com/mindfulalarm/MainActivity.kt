@@ -9,6 +9,10 @@ import android.widget.Button
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -70,6 +74,17 @@ class MainActivity : AppCompatActivity() {
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent)
 
+        val formattedDateTime = convertMillisToDateTime(timeInMillis)
+        println("Alarm on: $formattedDateTime")
+
         Toast.makeText(this, "Alarm set successfully", Toast.LENGTH_LONG).show()
+    }
+
+    private fun convertMillisToDateTime(timeInMillis: Long): String {
+        val instant = Instant.ofEpochMilli(timeInMillis)
+        val dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+
+        return dateTime.format(formatter)
     }
 }
