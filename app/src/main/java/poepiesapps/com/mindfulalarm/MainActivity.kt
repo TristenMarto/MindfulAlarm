@@ -72,14 +72,31 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, AlarmReceiver::class.java)
 
         // Try out different requestCodes
-        val pendingIntent = PendingIntent.getBroadcast(this, timeInMillis.toInt(), intent, PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent = PendingIntent.getBroadcast(
+            this,
+            timeInMillis.toInt(), // item.hashCode()
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent)
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent)
 
         val formattedDateTime = convertMillisToDateTime(timeInMillis)
         println("Alarm on: $formattedDateTime")
 
         Toast.makeText(this, "Alarm set successfully", Toast.LENGTH_LONG).show()
+    }
+
+    private fun cancelAlarm(item: AlarmItem) {
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, AlarmReceiver::class.java)
+        alarmManager.cancel(
+            PendingIntent.getBroadcast(
+                this,
+                item.hashCode(),
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+        )
     }
 
     private fun convertMillisToDateTime(timeInMillis: Long): String {
