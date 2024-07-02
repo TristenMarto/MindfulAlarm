@@ -30,8 +30,5 @@
             android:foregroundServiceType="shortService"
             android:enabled="true" />
 
-        <activity android:name=".AlarmActivity" />
-        <activity android:name=".ActiveAlarmsActivity"/>
-
     </application>
 </manifest>

@@ -70,7 +70,9 @@ class MainActivity : AppCompatActivity() {
     private fun setAlarm(timeInMillis: Long) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
+        // Try out different requestCodes
+        val pendingIntent = PendingIntent.getBroadcast(this, timeInMillis.toInt(), intent, PendingIntent.FLAG_IMMUTABLE)
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent)
 
