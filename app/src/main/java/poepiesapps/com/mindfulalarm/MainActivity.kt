@@ -94,7 +94,8 @@ class MainActivity : AppCompatActivity() {
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmItem.randomTime, pendingIntent)
+        // alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmItem.randomTime, pendingIntent)
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmItem.randomTime, AlarmManager.INTERVAL_DAY, pendingIntent)
 
         val formattedDateTime = convertMillisToDateTime(alarmItem.randomTime)
         println("squeek Alarm ${alarmItem.hash} set on: $formattedDateTime")
