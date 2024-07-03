@@ -6,4 +6,5 @@ data class AlarmItem (
     val startMinute: Int,
     val endHour: Int,
     val endMinute: Int,
+    val randomTime: Long,
 )
