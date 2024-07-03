@@ -41,8 +41,16 @@ class MainActivity : AppCompatActivity() {
             val endHour = endTimePicker.hour
             val endMinute = endTimePicker.minute
 
-            val randomTimeInMillis = getRandomTimeInMillis(startHour, startMinute, endHour, endMinute)
-            setAlarm(randomTimeInMillis)
+            val alarmItem = AlarmItem(
+                name = "Alarm",
+                startHour = startTimePicker.hour,
+                startMinute = startTimePicker.minute,
+                endHour = endTimePicker.hour,
+                endMinute = endTimePicker.minute,
+                randomTime = getRandomTimeInMillis(startHour, startMinute, endHour, endMinute)
+            )
+
+            setAlarm(alarmItem)
         }
     }
 
@@ -67,24 +75,45 @@ class MainActivity : AppCompatActivity() {
         return randomTimeInMillis
     }
 
-    private fun setAlarm(timeInMillis: Long) {
+    private fun setAlarm(alarmItem: AlarmItem) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlarmReceiver::class.java)
 
         // Try out different requestCodes
         val pendingIntent = PendingIntent.getBroadcast(
             this,
-            timeInMillis.toInt(), // item.hashCode()
+            alarmItem.hashCode(),
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
-        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent)
+        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmItem.randomTime, pendingIntent)
 
-        val formattedDateTime = convertMillisToDateTime(timeInMillis)
+        val formattedDateTime = convertMillisToDateTime(alarmItem.randomTime)
         println("Alarm on: $formattedDateTime")
 
         Toast.makeText(this, "Alarm set successfully", Toast.LENGTH_LONG).show()
     }
+
+//    private fun setAlarm(timeInMillis: Long) {
+//        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+//        val intent = Intent(this, AlarmReceiver::class.java)
+//
+//        // Try out different requestCodes
+//        val pendingIntent = PendingIntent.getBroadcast(
+//            this,
+//            timeInMillis.toInt(), // item.hashCode()
+//            intent,
+//            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+//
+//        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent)
+//
+//        val formattedDateTime = convertMillisToDateTime(timeInMillis)
+//        println("Alarm on: $formattedDateTime")
+//
+//        Toast.makeText(this, "Alarm set successfully", Toast.LENGTH_LONG).show()
+//    }
+
+
 
     private fun cancelAlarm(item: AlarmItem) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
