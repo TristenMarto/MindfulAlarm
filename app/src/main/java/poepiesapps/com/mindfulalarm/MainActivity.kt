@@ -35,9 +35,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        var i = 0
+
         setAlarmButton.setOnClickListener {
             val alarmItem = AlarmItem(
-                name = "Alarm",
+                name = i.toString(),
                 startHour = startTimePicker.hour,
                 startMinute = startTimePicker.minute,
                 endHour = endTimePicker.hour,
@@ -46,6 +48,8 @@ class MainActivity : AppCompatActivity() {
             )
 
             setAlarm(alarmItem)
+            saveAlarmItem(this, alarmItem)
+             i += 1
         }
     }
 
@@ -84,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmItem.randomTime, pendingIntent)
 
         val formattedDateTime = convertMillisToDateTime(alarmItem.randomTime)
-        println("Alarm on: $formattedDateTime")
+        println("squeek Alarm ${alarmItem.name} on: $formattedDateTime")
 
         Toast.makeText(this, "Alarm set successfully", Toast.LENGTH_LONG).show()
     }
@@ -109,4 +113,18 @@ class MainActivity : AppCompatActivity() {
 
         return dateTime.format(formatter)
     }
+
+    private fun saveAlarmItem(context: Context, alarmItem: AlarmItem) {
+        val sharedPreferences = context.getSharedPreferences("AlarmApp", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        editor.putString("alarmItem_${alarmItem.name}_name", alarmItem.name)
+        editor.putInt("alarmItem_${alarmItem.name}_startHour", alarmItem.startHour)
+        editor.putInt("alarmItem_${alarmItem.name}_startMinute", alarmItem.startMinute)
+        editor.putInt("alarmItem_${alarmItem.name}_endHour", alarmItem.endHour)
+        editor.putInt("alarmItem_${alarmItem.name}_endMinute", alarmItem.endMinute)
+        editor.putLong("alarmItem_${alarmItem.name}_randomTime", alarmItem.randomTime)
+        editor.apply()
+    }
+
 }
