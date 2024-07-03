@@ -14,8 +14,10 @@ class AlarmAdapter(private val alarms: List<AlarmItem>) : RecyclerView.Adapter<A
     }
 
     override fun onBindViewHolder(holder: AlarmViewHolder, position: Int) {
-        holder.alarmTextView.text = alarms[position].name
+        val alarmItem = alarms[position]
+        "Alarm ${alarmItem.name} set: ${alarmItem.startHour}:${alarmItem.startMinute} - ${alarmItem.endHour}:${alarmItem.endMinute}".also { holder.alarmTextView.text = it }
     }
+
 
     override fun getItemCount(): Int = alarms.size
 
