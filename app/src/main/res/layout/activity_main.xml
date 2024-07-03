@@ -11,12 +11,14 @@
         android:id="@+id/alarmNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:height="48dp"
+        android:layout_marginBottom="16dp"
+        android:autofillHints=""
+        android:height="50dp"
         android:hint="Enter Alarm Name"
         android:imeOptions="actionDone"
         android:inputType="text"
-        tools:ignore="HardcodedText"
-        android:layout_marginBottom="16dp" />
+        android:minHeight="48dp"
+        tools:ignore="HardcodedText,VisualLintTextFieldSize" />
 
     <TextView
         android:layout_width="wrap_content"
