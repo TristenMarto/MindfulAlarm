@@ -13,11 +13,6 @@ class AlarmActivity : AppCompatActivity() {
         setContentView(R.layout.activity_alarm)
 
         stopAlarmButton = findViewById(R.id.stopAlarmButton)
-
-//        val alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-//        val ringtone = RingtoneManager.getRingtone(this, alarmUri)
-//        ringtone.play()
-
         stopAlarmButton.setOnClickListener {
             stopAlarm()
         }
