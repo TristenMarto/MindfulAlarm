@@ -7,6 +7,22 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
+    <EditText
+        android:id="@+id/alarmNameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:height="48dp"
+        android:hint="Enter Alarm Name"
+        tools:ignore="HardcodedText"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Will ring between"
+        tools:ignore="HardcodedText" />
+
     <TimePicker
         android:id="@+id/startTimePicker"
         android:layout_width="wrap_content"
@@ -14,12 +30,19 @@
         android:layout_gravity="center"
         android:timePickerMode="spinner" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:ignore="HardcodedText"
+        android:text="And" />
+
     <TimePicker
         android:id="@+id/endTimePicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:timePickerMode="spinner"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:timePickerMode="spinner" />
 
     <Button
         android:id="@+id/setAlarmButton"
@@ -27,6 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
+        tools:ignore="HardcodedText"
         android:text="Set Random Alarm" />
 
     <Button
@@ -35,5 +59,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:text="View Active Alarms"/>
+        tools:ignore="HardcodedText"
+        android:text="View Active Alarms" />
 </LinearLayout>

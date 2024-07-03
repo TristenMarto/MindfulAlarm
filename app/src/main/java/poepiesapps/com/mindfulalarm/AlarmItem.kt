@@ -1,7 +1,8 @@
 package poepiesapps.com.mindfulalarm
 
 data class AlarmItem (
-    val name: String,
+    var hash: Int,
+    var name: String,
     val startHour: Int,
     val startMinute: Int,
     val endHour: Int,
